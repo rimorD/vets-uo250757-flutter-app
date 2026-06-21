@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vets_uo250757_flutter_app/pages/custom_dialog_alert.dart';
+import 'package:vets_uo250757_flutter_app/pages/user_detail_page.dart';
 import 'package:vets_uo250757_flutter_app/pages/user_edit_form.dart';
 import 'package:vets_uo250757_flutter_app/pages/user_signup_form.dart';
 import 'package:vets_uo250757_flutter_app/src/user.dart';
@@ -57,32 +58,11 @@ class StateHomePage extends State<HomePage> {
         itemBuilder: (context, index) {
           return ListTile(
             onTap: () {
-              User currentUser = users[index];
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UserEditForm(user: currentUser),
+                  builder: (context) => UserDetailPage(user: users[index]),
                 ),
-              ).then(
-                (modifiedUser) => {
-                  if (modifiedUser != null)
-                    {
-                      setState(() {
-                        users.removeAt(index);
-                        users.insert(index, modifiedUser);
-                        String message =
-                            "El usuario ${modifiedUser.name} ha sido actualizado correctamenet.";
-                        showDialog(
-                          context: context,
-                          builder: (context) => CustomAlertDialog.create(
-                            context,
-                            'Información',
-                            message,
-                          ),
-                        );
-                      }),
-                    },
-                },
               );
             },
             onLongPress: () {
@@ -93,7 +73,39 @@ class StateHomePage extends State<HomePage> {
             leading: CircleAvatar(
               child: Text(users[index].name.substring(0, 1)),
             ),
-            trailing: const Icon(Icons.call, color: Colors.black),
+            trailing: IconButton(
+              icon: const Icon(Icons.edit, color: Colors.black),
+              tooltip: 'Editar',
+              onPressed: () {
+                User currentUser = users[index];
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserEditForm(user: currentUser),
+                  ),
+                ).then(
+                  (modifiedUser) => {
+                    if (modifiedUser != null)
+                      {
+                        setState(() {
+                          users.removeAt(index);
+                          users.insert(index, modifiedUser);
+                          String message =
+                              "El usuario ${modifiedUser.name} ha sido actualizado correctamenet.";
+                          showDialog(
+                            context: context,
+                            builder: (context) => CustomAlertDialog.create(
+                              context,
+                              'Información',
+                              message,
+                            ),
+                          );
+                        }),
+                      },
+                  },
+                );
+              },
+            ),
           );
         },
       ),
