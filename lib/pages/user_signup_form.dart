@@ -69,6 +69,10 @@ class UserSignUpFormState extends State<UserSignUpForm> {
                 if (value == null || value.isEmpty) {
                   return 'por favor digite el email';
                 }
+                final regex = RegExp(r'^[\w\.\-]+@[\w\.\-]+\.\w{2,}$');
+                if (!regex.hasMatch(value)) {
+                  return 'formato inválido (ej: email@email.com)';
+                }
                 return null;
               },
               onSaved: (value) {
@@ -79,13 +83,17 @@ class UserSignUpFormState extends State<UserSignUpForm> {
 
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Telefóno',
-                hintText: 'Introduce tu email',
+                labelText: 'Teléfono',
+                hintText: '999-999-999-999',
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'por favor digite el telefono ';
+                  return 'por favor digite el teléfono';
+                }
+                final regex = RegExp(r'^\d{3}-\d{3}-\d{3}-\d{3}$');
+                if (!regex.hasMatch(value)) {
+                  return 'formato inválido (ej: 034-999-999-977)';
                 }
                 return null;
               },
