@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vets_uo250757_flutter_app/pages/custom_dialog_alert.dart';
 import 'package:vets_uo250757_flutter_app/pages/user_signup_form.dart';
 import 'package:vets_uo250757_flutter_app/src/user.dart';
 
@@ -40,6 +41,25 @@ class StateHomePage extends State<HomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const UserSignUpForm()),
+          ).then(
+            (newUser) => {
+              if (newUser != null)
+                {
+                  setState(() {
+                    users.add(newUser);
+                    String message =
+                        "El usuario ${newUser.name} ha sido registrado";
+                    showDialog(
+                      context: context,
+                      builder: (context) => CustomAlertDialog.create(
+                        context,
+                        'Información',
+                        message,
+                      ),
+                    );
+                  }),
+                },
+            },
           ),
         },
         tooltip: "Registrar usuario",
