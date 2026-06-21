@@ -42,7 +42,13 @@ class StateUserEditForm extends State<UserEditForm> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'por Favor digite el nombre';
+                  return 'por favor digite el nombre';
+                }
+                if (value.length < 2) return 'mínimo 2 caracteres';
+                if (value.length > 50) return 'máximo 50 caracteres';
+                final regex = RegExp(r'^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$');
+                if (!regex.hasMatch(value)) {
+                  return 'solo se permiten letras y espacios';
                 }
                 return null;
               },
@@ -58,6 +64,12 @@ class StateUserEditForm extends State<UserEditForm> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'por favor digite los apellidos';
+                }
+                if (value.length < 2) return 'mínimo 2 caracteres';
+                if (value.length > 50) return 'máximo 50 caracteres';
+                final regex = RegExp(r'^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$');
+                if (!regex.hasMatch(value)) {
+                  return 'solo se permiten letras y espacios';
                 }
                 return null;
               },
