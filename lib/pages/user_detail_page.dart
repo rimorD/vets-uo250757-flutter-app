@@ -6,6 +6,16 @@ class UserDetailPage extends StatelessWidget {
 
   const UserDetailPage({super.key, required this.user});
 
+  String _formatDate(String isoDate) {
+    if (isoDate.isEmpty) return '-';
+    try {
+      final date = DateTime.parse(isoDate);
+      return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
+    } catch (_) {
+      return isoDate;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +56,9 @@ class UserDetailPage extends StatelessWidget {
               value: user.email,
             ),
             _DetailField(
-              icon: Icons.phone_outlined,
-              label: 'Teléfono',
-              value: user.phone,
+              icon: Icons.cake_outlined,
+              label: 'Fecha de nacimiento',
+              value: _formatDate(user.birthDate),
             ),
           ],
         ),

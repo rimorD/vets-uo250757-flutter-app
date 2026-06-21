@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vets_uo250757_flutter_app/pages/home_page.dart';
+import 'package:vets_uo250757_flutter_app/pages/login_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: "Aplicación para la gestión de veterinarias (uo250757)",
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
